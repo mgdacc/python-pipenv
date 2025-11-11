@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Interactiva: Pipenv</title>
+    <style>
+        /* === ESTILOS GLOBALES Y DE ESCRITORIO === */
+        body {
+            font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0;
+            padding: 40px; display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; box-sizing: border-box; transition: padding 0.3s ease;
+        }
+
+        .slideshow-container { position: relative; width: 90%; max-width: 960px; }
+        
+        .slide {
+            display: none; background-color: #fff; border: 1px solid #ccc;
+            height: 540px; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            flex-direction: column; justify-content: center; position: relative;
+            box-sizing: border-box;
+        }
+
+        .fade { animation-name: fade; animation-duration: 0.5s; }
+        @keyframes fade { from {opacity: .4} to {opacity: 1} }
+
+        .prev, .next {
+            cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+            width: 50px; height: 50px; background-color: #cccccc; color: #333;
+            border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex; justify-content: center; align-items: center;
+            font-weight: bold; font-size: 24px; transition: all 0.3s ease;
+            user-select: none; z-index: 10;
+        }
+
+        .prev { left: -70px; }
+        .next { right: -70px; }
+        .prev:hover, .next:hover { background-color: #aaaaaa; }
+
+        .slide h1 { font-size: 3.5em; text-align: center; border-bottom: 4px solid #11a800; padding-bottom: 20px; color: #005A9C; }
+        .slide h2 { font-size: 2.8em; margin-top: 0; margin-bottom: 30px; text-align: center; color: #005A9C; }
+        .single-content { text-align: center; }
+        .single-content p { font-size: 1.5em; color: #444; }
+        .single-content pre { font-size: 1.2em; display: inline-block; text-align: left; max-width: 100%; }
+        pre { background-color: #2d3636; color: #fff; padding: 15px; border-radius: 5px; font-size: 1.1em; white-space: pre-wrap; }
+        .footer { position: absolute; bottom: 20px; right: 40px; font-size: 1em; color: #888; }
+
+        /* === MEDIA QUERIES === */
+        @media screen and (max-width: 768px) {
+            body { padding: 15px; }
+            .slideshow-container { width: 100%; padding-bottom: 75px; }
+            .slide { height: auto; min-height: 75vh; padding: 20px 25px; }
+            .prev, .next { top: auto; bottom: 15px; width: 45px; height: 45px; }
+            .prev { left: 50%; transform: translateX(-110%); }
+            .next { left: 50%; transform: translateX(10%); right: auto; }
+            .slide h1 { font-size: 2.2em; }
+            .slide h2 { font-size: 1.8em; }
+            .single-content p { font-size: 1.1em; }
+            .single-content pre { font-size: 1em; }
+            .footer { font-size: 0.8em; right: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slideshow-container">
+        
+        <div class="slide fade">
+            <h1>Cheat Sheet de Python</h1>
+            <h2 style="color:#333; border:none;">Pipenv</h2>
+            <div class="footer">1 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>El Problema del Flujo Clásico</h2>
+            <div class="single-content"><p>El flujo con `venv` + `pip` + `requirements.txt` funciona, pero es manual y propenso a errores.</p></div>
+            <div class="footer">2 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>¿Qué es Pipenv?</h2>
+            <div class="single-content"><p>Una herramienta que combina la gestión de entornos virtuales y la gestión de paquetes en un solo comando.</p></div>
+            <div class="footer">3 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Instalación</h2>
+            <div class="single-content"><p>Pipenv se instala globalmente (o por usuario) con pip.</p><pre><code>pip install --user pipenv</code></pre></div>
+            <div class="footer">4 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Iniciar un Proyecto</h2>
+            <div class="single-content"><p>Navega a la carpeta de tu nuevo proyecto y simplemente instala tu primer paquete.</p><pre><code>cd mi_proyecto
+pipenv install requests</code></pre><p>Esto crea el entorno virtual Y los archivos `Pipfile` y `Pipfile.lock`.</p></div>
+            <div class="footer">5 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>El Archivo `Pipfile`</h2>
+            <div class="single-content"><p>Es el reemplazo de `requirements.txt`. Separa las dependencias de producción de las de desarrollo.</p><pre><code>[packages]
+requests = "*"
+
+[dev-packages]
+pytest = "*"</code></pre></div>
+            <div class="footer">6 / 20</div>
+        </div>
+        
+        <!-- DIAPOSITIVA NUEVA -->
+        <div class="slide fade">
+            <h2>Dependencias de Producción</h2>
+            <div class="single-content"><p>Son los paquetes que tu aplicación necesita para <strong>funcionar</strong>. Se instalan en el servidor de producción.</p><pre><code># Ejemplos:
+# flask, requests, pandas, numpy</code></pre><p>Se instalan con `pipenv install <paquete>`</p></div>
+            <div class="footer">7 / 20</div>
+        </div>
+
+        <!-- DIAPOSITIVA NUEVA -->
+        <div class="slide fade">
+            <h2>Dependencias de Desarrollo</h2>
+            <div class="single-content"><p>Son los paquetes que solo necesitas para <strong>desarrollar</strong> la aplicación. No se instalan en producción.</p><pre><code># Ejemplos:
+# pytest (para testing)
+# black (para formateo de código)
+# ruff (para linting)</code></pre><p>Se instalan con `pipenv install <paquete> --dev`</p></div>
+            <div class="footer">8 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>El Archivo `Pipfile.lock`</h2>
+            <div class="single-content"><p>Este archivo bloquea las versiones <strong>exactas</strong> de <strong>TODOS</strong> los paquetes. Garantiza builds deterministas y reproducibles.</p></div>
+            <div class="footer">9 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Builds Deterministas</h2>
+            <div class="single-content"><p>Significa que si otro desarrollador instala las dependencias, obtendrá exactamente el mismo entorno, bit por bit, evitando sorpresas.</p></div>
+            <div class="footer">10 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Activar el Entorno: `pipenv shell`</h2>
+            <div class="single-content"><p>Este comando activa el entorno virtual. Es el equivalente a `source venv/bin/activate`.</p><pre><code>pipenv shell</code></pre></div>
+            <div class="footer">11 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Ejecutar Comandos: `pipenv run`</h2>
+            <div class="single-content"><p>Puedes ejecutar un comando dentro del entorno virtual sin necesidad de activarlo.</p><pre><code>pipenv run python mi_script.py
+pipenv run pytest</code></pre></div>
+            <div class="footer">12 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Instalar en un Nuevo Entorno</h2>
+            <div class="single-content"><p>Para instalar todas las dependencias (producción + desarrollo) al clonar un proyecto.</p><pre><code>git clone ...
+cd mi_proyecto
+pipenv install --dev</code></pre></div>
+            <div class="footer">13 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Instalar solo para Producción</h2>
+            <div class="single-content"><p>En un servidor de producción, no necesitas las herramientas de desarrollo. Omitir `--dev` es más rápido y seguro.</p><pre><code>pipenv install</code></pre></div>
+            <div class="footer">14 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Desinstalar Paquetes</h2>
+            <div class="single-content"><p>Pipenv se encarga de eliminar el paquete y actualizar los archivos `Pipfile` y `Pipfile.lock`.</p><pre><code>pipenv uninstall requests</code></pre></div>
+            <div class="footer">15 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Actualizar Paquetes</h2>
+            <div class="single-content"><p>Para actualizar un paquete a su última versión (y actualizar el `Pipfile.lock`).</p><pre><code>pipenv update requests</code></pre></div>
+            <div class="footer">16 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Ver el Gráfico de Dependencias</h2>
+            <div class="single-content"><p>Un comando muy útil para visualizar el árbol de dependencias de tu proyecto.</p><pre><code>pipenv graph</code></pre></div>
+            <div class="footer">17 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Alternativas Modernas</h2>
+            <div class="single-content"><p>Herramientas como <strong>Poetry</strong> y <strong>PDM</strong> han ganado mucha popularidad. Siguen una filosofía similar pero usan el estándar `pyproject.toml`.</p></div>
+            <div class="footer">18 / 20</div>
+        </div>
+        
+        <div class="slide fade">
+            <h2>Conclusión</h2>
+            <div class="single-content"><p>Pipenv simplifica drásticamente la gestión de dependencias, promoviendo un flujo de trabajo más robusto y reproducible al separar las dependencias de producción y desarrollo.</p></div>
+            <div class="footer">19 / 20</div>
+        </div>
+
+        <div class="slide fade">
+            <h2>Flujo de trabajo unificado</h2>
+            <div class="single-content"><p>Pipenv simplifica drásticamente la gestión de dependencias y entornos en Python, promoviendo un flujo de trabajo más robusto y reproducible. Es un gran paso adelante respecto al manejo manual con `pip` y `venv`.</p></div>
+            <div class="footer">20 / 20</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            if (n > slides.length) { slideIndex = 1 } 
+            if (n < 1) { slideIndex = slides.length }
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            slides[slideIndex - 1].style.display = "flex";
+        }
+    </script>
+
+</body>
+</html>
